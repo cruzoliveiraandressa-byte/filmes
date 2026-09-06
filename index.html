@@ -1,960 +1,1049 @@
+Claro — abaixo está um arquivo HTML completo, com bastante CSS, para criar um **coração rosa neon animado**, com efeito de brilho, pulsação, aura e partículas.
+
+```
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Drift Racer</title>
+    <meta charset="UTF-8">
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  user-select: none;
-}
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-body {
-  background: #08090d;
-  color: white;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-}
+    <meta name="description"
+          content="Coração rosa neon animado feito com HTML e CSS">
 
-#game {
-  display: block;
-  width: 100vw;
-  height: 100vh;
-  background: #151a17;
-}
+    <title>💗 Coração Rosa Neon</title>
 
-#hud {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  z-index: 5;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-}
+    <style>
 
-.panel {
-  background: rgba(0,0,0,.65);
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 12px;
-  padding: 12px 16px;
-  backdrop-filter: blur(8px);
-}
+        /* =========================================================
+           RESET
+        ========================================================= */
 
-.panel div {
-  margin: 4px 0;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-#nitroBar {
-  width: 160px;
-  height: 10px;
-  background: #333;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 6px;
-}
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
 
-#nitroFill {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg,#00bfff,#7c4dff);
-}
+        body {
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at center,
+                    #260018 0%,
+                    #13000d 35%,
+                    #050005 75%,
+                    #000000 100%
+                );
 
-#menu {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle,#18232c,#050608);
-}
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
-.menuBox {
-  width: min(90%,420px);
-  padding: 35px;
-  text-align: center;
-  background: rgba(15,18,24,.95);
-  border: 1px solid #333;
-  border-radius: 20px;
-  box-shadow: 0 20px 70px #000;
-}
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-.menuBox h1 {
-  font-size: 48px;
-  color: #ff304f;
-  font-style: italic;
-  margin-bottom: 10px;
-}
+            color: #fff;
+        }
 
-.menuBox p {
-  color: #aaa;
-  margin-bottom: 25px;
-}
+        /* =========================================================
+           FUNDO
+        ========================================================= */
 
-button {
-  border: none;
-  border-radius: 10px;
-  padding: 14px 25px;
-  background: #ff304f;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-}
+        .background {
+            position: fixed;
+            inset: 0;
 
-button:hover {
-  background: #ff163a;
-  transform: scale(1.03);
-}
+            overflow: hidden;
 
-#controls {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  display: flex;
-  justify-content: space-between;
-  z-index: 10;
-  pointer-events: none;
-}
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    rgba(255, 0, 140, 0.08),
+                    transparent 55%
+                );
 
-.controlGroup {
-  display: flex;
-  gap: 10px;
-}
+            z-index: 0;
+        }
 
-.control {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.25);
-  background: rgba(0,0,0,.6);
-  color: white;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: auto;
-  touch-action: none;
-}
+        /* Grade futurista */
 
-#driftButton {
-  background: rgba(255,48,79,.75);
-}
+        .grid {
+            position: absolute;
+            inset: -50%;
 
-@media (min-width: 800px) {
-  #controls {
-    display: none;
-  }
-}
-</style>
+            background-image:
+                linear-gradient(
+                    rgba(255, 0, 140, 0.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255, 0, 140, 0.035) 1px,
+                    transparent 1px
+                );
+
+            background-size: 60px 60px;
+
+            transform:
+                perspective(500px)
+                rotateX(60deg);
+
+            animation:
+                gridMove 12s linear infinite;
+        }
+
+        @keyframes gridMove {
+
+            0% {
+                transform:
+                    perspective(500px)
+                    rotateX(60deg)
+                    translateY(0);
+            }
+
+            100% {
+                transform:
+                    perspective(500px)
+                    rotateX(60deg)
+                    translateY(60px);
+            }
+        }
+
+        /* =========================================================
+           AURAS DO FUNDO
+        ========================================================= */
+
+        .orb {
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            border-radius: 50%;
+
+            filter: blur(80px);
+
+            opacity: 0.25;
+
+            animation:
+                floatOrb 8s ease-in-out infinite alternate;
+        }
+
+        .orb.one {
+            background: #ff0088;
+            top: 5%;
+            left: 10%;
+        }
+
+        .orb.two {
+            background: #ff1493;
+            right: 5%;
+            bottom: 5%;
+
+            animation-delay: -3s;
+        }
+
+        .orb.three {
+            background: #ff00cc;
+            left: 45%;
+            top: 40%;
+
+            width: 180px;
+            height: 180px;
+
+            animation-delay: -5s;
+        }
+
+        @keyframes floatOrb {
+
+            from {
+                transform: translate(0, 0) scale(0.8);
+            }
+
+            to {
+                transform: translate(60px, -50px) scale(1.2);
+            }
+        }
+
+        /* =========================================================
+           CONTAINER PRINCIPAL
+        ========================================================= */
+
+        .scene {
+            position: relative;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            z-index: 5;
+        }
+
+        /* =========================================================
+           CORAÇÃO
+        ========================================================= */
+
+        .heart-container {
+
+            position: relative;
+
+            width: 300px;
+            height: 300px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            animation:
+                heartbeat 1.35s ease-in-out infinite;
+        }
+
+        /*
+           Aura gigante atrás do coração
+        */
+
+        .heart-aura {
+
+            position: absolute;
+
+            width: 210px;
+            height: 210px;
+
+            background: #ff008c;
+
+            transform:
+                rotate(-45deg);
+
+            border-radius:
+                25px 0 25px 0;
+
+            filter:
+                blur(65px);
+
+            opacity: 0.75;
+
+            animation:
+                auraPulse 1.35s ease-in-out infinite;
+        }
+
+        .heart-aura::before,
+        .heart-aura::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 210px;
+            height: 210px;
+
+            background: #ff008c;
+
+            border-radius: 50%;
+        }
+
+        .heart-aura::before {
+            top: -105px;
+            left: 0;
+        }
+
+        .heart-aura::after {
+            left: 105px;
+            top: 0;
+        }
+
+        /*
+           Coração principal
+        */
+
+        .heart {
+
+            position: absolute;
+
+            width: 190px;
+            height: 190px;
+
+            background:
+
+                radial-gradient(
+                    circle at 35% 25%,
+                    #ffb6df 0%,
+                    #ff6fbd 8%,
+                    #ff1493 35%,
+                    #ff0080 65%,
+                    #c00061 100%
+                );
+
+            transform:
+                rotate(-45deg);
+
+            border-radius:
+                28px 0 28px 0;
+
+            box-shadow:
+
+                0 0 5px #fff,
+
+                0 0 10px #ffb3dc,
+
+                0 0 20px #ff69b4,
+
+                0 0 35px #ff1493,
+
+                0 0 60px #ff0088,
+
+                0 0 100px rgba(255, 0, 136, 0.9),
+
+                inset
+                0 0 20px rgba(255, 255, 255, 0.35),
+
+                inset
+                -15px -15px 30px rgba(100, 0, 50, 0.3);
+
+            animation:
+                neonPulse 1.35s ease-in-out infinite;
+        }
+
+        /*
+           Parte superior esquerda
+        */
+
+        .heart::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 190px;
+            height: 190px;
+
+            left: 0;
+            top: -95px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 35% 35%,
+                    #ffbce2,
+                    #ff4fae 35%,
+                    #ff0088 70%,
+                    #c0005e
+                );
+
+            box-shadow:
+
+                0 0 8px #fff,
+
+                0 0 20px #ff69b4,
+
+                0 0 45px #ff1493;
+        }
+
+        /*
+           Parte superior direita
+        */
+
+        .heart::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 190px;
+            height: 190px;
+
+            right: -95px;
+            top: 0;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 35% 35%,
+                    #ffbce2,
+                    #ff4fae 35%,
+                    #ff0088 70%,
+                    #c0005e
+                );
+
+            box-shadow:
+
+                0 0 8px #fff,
+
+                0 0 20px #ff69b4,
+
+                0 0 45px #ff1493;
+        }
+
+        /* =========================================================
+           ANIMAÇÕES DO CORAÇÃO
+        ========================================================= */
+
+        @keyframes heartbeat {
+
+            0% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.08);
+            }
+
+            30% {
+                transform: scale(0.98);
+            }
+
+            45% {
+                transform: scale(1.12);
+            }
+
+            70% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes neonPulse {
+
+            0%,
+            100% {
+
+                filter:
+                    brightness(1);
+
+                box-shadow:
+
+                    0 0 5px #fff,
+                    0 0 10px #ffb3dc,
+                    0 0 20px #ff69b4,
+                    0 0 35px #ff1493,
+                    0 0 60px #ff0088,
+                    0 0 100px rgba(255, 0, 136, 0.8);
+            }
+
+            50% {
+
+                filter:
+                    brightness(1.35);
+
+                box-shadow:
+
+                    0 0 8px #fff,
+                    0 0 20px #fff,
+                    0 0 35px #ffb3dc,
+                    0 0 60px #ff69b4,
+                    0 0 100px #ff1493,
+                    0 0 160px rgba(255, 0, 136, 0.95);
+            }
+        }
+
+        @keyframes auraPulse {
+
+            0%,
+            100% {
+                opacity: 0.35;
+                transform:
+                    rotate(-45deg)
+                    scale(0.85);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform:
+                    rotate(-45deg)
+                    scale(1.15);
+            }
+        }
+
+        /* =========================================================
+           REFLEXOS NO CORAÇÃO
+        ========================================================= */
+
+        .shine {
+
+            position: absolute;
+
+            width: 70px;
+            height: 25px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,0.95),
+                    transparent
+                );
+
+            border-radius: 50%;
+
+            filter:
+                blur(4px);
+
+            transform:
+                rotate(-45deg);
+
+            top: 65px;
+            left: 75px;
+
+            opacity: 0.8;
+
+            animation:
+                shineMove 3s ease-in-out infinite;
+        }
+
+        @keyframes shineMove {
+
+            0% {
+                opacity: 0;
+                transform:
+                    rotate(-45deg)
+                    translateX(-20px);
+            }
+
+            20% {
+                opacity: 0.9;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            80% {
+                opacity: 0;
+                transform:
+                    rotate(-45deg)
+                    translateX(80px);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* =========================================================
+           ANEL NEON
+        ========================================================= */
+
+        .ring {
+
+            position: absolute;
+
+            width: 430px;
+            height: 430px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(255, 20, 147, 0.35);
+
+            box-shadow:
+
+                0 0 10px rgba(255, 20, 147, 0.25),
+                inset 0 0 20px rgba(255, 20, 147, 0.1);
+
+            animation:
+                rotateRing 15s linear infinite;
+        }
+
+        .ring::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 8px;
+            height: 8px;
+
+            background: #ff69b4;
+
+            border-radius: 50%;
+
+            top: 30px;
+            left: 50%;
+
+            box-shadow:
+
+                0 0 5px #fff,
+                0 0 15px #ff69b4,
+                0 0 30px #ff1493;
+        }
+
+        .ring::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 5px;
+            height: 5px;
+
+            background: #fff;
+
+            border-radius: 50%;
+
+            bottom: 60px;
+            right: 20%;
+
+            box-shadow:
+                0 0 10px #ff1493,
+                0 0 20px #ff1493;
+        }
+
+        @keyframes rotateRing {
+
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* =========================================================
+           PARTÍCULAS
+        ========================================================= */
+
+        .particles {
+
+            position: absolute;
+
+            inset: 0;
+
+            pointer-events: none;
+        }
+
+        .particle {
+
+            position: absolute;
+
+            width: 4px;
+            height: 4px;
+
+            background: #ff8ac7;
+
+            border-radius: 50%;
+
+            box-shadow:
+
+                0 0 5px #fff,
+                0 0 10px #ff69b4,
+                0 0 20px #ff1493;
+
+            animation:
+                particleFloat
+                var(--duration)
+                ease-in-out
+                infinite;
+
+            animation-delay:
+                var(--delay);
+        }
+
+        .particle:nth-child(1) {
+            left: 15%;
+            top: 30%;
+            --duration: 5s;
+            --delay: -1s;
+        }
+
+        .particle:nth-child(2) {
+            left: 22%;
+            top: 65%;
+            --duration: 7s;
+            --delay: -3s;
+        }
+
+        .particle:nth-child(3) {
+            left: 30%;
+            top: 15%;
+            --duration: 6s;
+            --delay: -2s;
+        }
+
+        .particle:nth-child(4) {
+            left: 75%;
+            top: 20%;
+            --duration: 8s;
+            --delay: -4s;
+        }
+
+        .particle:nth-child(5) {
+            left: 85%;
+            top: 50%;
+            --duration: 6s;
+            --delay: -1s;
+        }
+
+        .particle:nth-child(6) {
+            left: 72%;
+            top: 75%;
+            --duration: 9s;
+            --delay: -5s;
+        }
+
+        .particle:nth-child(7) {
+            left: 40%;
+            top: 85%;
+            --duration: 7s;
+            --delay: -2s;
+        }
+
+        .particle:nth-child(8) {
+            left: 55%;
+            top: 10%;
+            --duration: 5s;
+            --delay: -4s;
+        }
+
+        .particle:nth-child(9) {
+            left: 10%;
+            top: 80%;
+            --duration: 8s;
+            --delay: -3s;
+        }
+
+        .particle:nth-child(10) {
+            left: 92%;
+            top: 80%;
+            --duration: 6s;
+            --delay: -1s;
+        }
+
+        @keyframes particleFloat {
+
+            0% {
+                transform:
+                    translateY(30px)
+                    scale(0);
+
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            50% {
+                transform:
+                    translateY(-60px)
+                    scale(1.4);
+
+                opacity: 1;
+            }
+
+            80% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform:
+                    translateY(-140px)
+                    scale(0);
+
+                opacity: 0;
+            }
+        }
+
+        /* =========================================================
+           PEQUENOS CORAÇÕES
+        ========================================================= */
+
+        .mini-heart {
+
+            position: absolute;
+
+            color: #ff69b4;
+
+            font-size: 20px;
+
+            text-shadow:
+
+                0 0 5px #fff,
+                0 0 10px #ff69b4,
+                0 0 20px #ff1493,
+                0 0 30px #ff0088;
+
+            animation:
+                miniFloat 4s ease-in-out infinite;
+        }
+
+        .mini-heart.one {
+            top: 20%;
+            left: 25%;
+            animation-delay: -1s;
+        }
+
+        .mini-heart.two {
+            top: 25%;
+            right: 25%;
+            font-size: 14px;
+            animation-delay: -2s;
+        }
+
+        .mini-heart.three {
+            bottom: 20%;
+            left: 28%;
+            font-size: 16px;
+            animation-delay: -3s;
+        }
+
+        .mini-heart.four {
+            bottom: 25%;
+            right: 27%;
+            font-size: 22px;
+            animation-delay: -1.5s;
+        }
+
+        @keyframes miniFloat {
+
+            0%,
+            100% {
+                transform:
+                    translateY(0)
+                    scale(1)
+                    rotate(-10deg);
+
+                opacity: 0.4;
+            }
+
+            50% {
+                transform:
+                    translateY(-30px)
+                    scale(1.4)
+                    rotate(10deg);
+
+                opacity: 1;
+            }
+        }
+
+        /* =========================================================
+           TEXTO
+        ========================================================= */
+
+        .message {
+
+            position: absolute;
+
+            bottom: 55px;
+
+            text-align: center;
+
+            letter-spacing: 5px;
+
+            text-transform: uppercase;
+
+            font-size: 13px;
+
+            color: #ffb6dc;
+
+            text-shadow:
+
+                0 0 5px #ff69b4,
+                0 0 15px #ff1493,
+                0 0 30px #ff0088;
+
+            animation:
+                textPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* =========================================================
+           BORDA DA TELA
+        ========================================================= */
+
+        .screen-border {
+
+            position: fixed;
+
+            inset: 15px;
+
+            border:
+                1px solid rgba(255, 20, 147, 0.12);
+
+            box-shadow:
+                inset 0 0 40px rgba(255, 0, 136, 0.05);
+
+            pointer-events: none;
+
+            z-index: 20;
+        }
+
+        .screen-border::before,
+        .screen-border::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 70px;
+            height: 70px;
+
+            border-color:
+                rgba(255, 20, 147, 0.6);
+
+            border-style: solid;
+        }
+
+        .screen-border::before {
+
+            top: -1px;
+            left: -1px;
+
+            border-width:
+                2px 0 0 2px;
+        }
+
+        .screen-border::after {
+
+            bottom: -1px;
+            right: -1px;
+
+            border-width:
+                0 2px 2px 0;
+        }
+
+        /* =========================================================
+           RESPONSIVIDADE
+        ========================================================= */
+
+        @media (max-width: 600px) {
+
+            .heart-container {
+                transform: scale(0.72);
+            }
+
+            .ring {
+                transform: scale(0.75);
+            }
+
+            .message {
+                bottom: 35px;
+                font-size: 10px;
+                letter-spacing: 3px;
+            }
+
+            .screen-border {
+                inset: 8px;
+            }
+        }
+
+        @media (max-height: 600px) {
+
+            .heart-container {
+                transform: scale(0.65);
+            }
+
+            .message {
+                bottom: 15px;
+            }
+        }
+
+    </style>
 </head>
 
 <body>
 
-<canvas id="game"></canvas>
+    <!-- =========================================================
+         FUNDO
+    ========================================================= -->
 
-<div id="hud">
+    <div class="background">
 
-  <div class="panel">
-    <div>🏁 Volta: <b id="lap">1/3</b></div>
-    <div>🏆 Pontos: <b id="score">0</b></div>
-    <div>💨 Velocidade: <b id="speed">0</b></div>
-  </div>
+        <div class="grid"></div>
 
-  <div class="panel">
-    <div>⚡ Nitro</div>
-    <div id="nitroBar">
-      <div id="nitroFill"></div>
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+        <div class="orb three"></div>
+
     </div>
-  </div>
 
-</div>
+    <!-- =========================================================
+         BORDA DA TELA
+    ========================================================= -->
 
-<div id="menu">
-  <div class="menuBox">
-    <h1>DRIFT</h1>
-    <p>Corra, derrape e faça a maior pontuação!</p>
+    <div class="screen-border"></div>
 
-    <button id="startButton">
-      COMEÇAR CORRIDA
-    </button>
+    <!-- =========================================================
+         PARTÍCULAS
+    ========================================================= -->
 
-    <p style="margin-top:20px;font-size:13px">
-      PC: WASD / Setas + Espaço para drift
-    </p>
-  </div>
-</div>
+    <div class="particles">
 
-<div id="controls">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
 
-  <div class="controlGroup">
-    <button class="control" data-key="ArrowLeft">←</button>
-    <button class="control" data-key="ArrowDown">↓</button>
-    <button class="control" data-key="ArrowRight">→</button>
-  </div>
+    </div>
 
-  <div class="controlGroup">
-    <button class="control" data-key="Space" id="driftButton">DRIFT</button>
-    <button class="control" data-key="ArrowUp">↑</button>
-  </div>
+    <!-- =========================================================
+         PEQUENOS CORAÇÕES
+    ========================================================= -->
 
-</div>
+    <div class="mini-heart one">♥</div>
+    <div class="mini-heart two">♥</div>
+    <div class="mini-heart three">♥</div>
+    <div class="mini-heart four">♥</div>
 
-<script>
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+    <!-- =========================================================
+         CENA PRINCIPAL
+    ========================================================= -->
 
-let W, H;
+    <main class="scene">
 
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
+        <div class="ring"></div>
 
-window.addEventListener("resize", resize);
-resize();
+        <div class="heart-container">
 
-/* =========================
-   CONTROLES
-========================= */
+            <!-- Aura externa -->
+            <div class="heart-aura"></div>
 
-const keys = {};
+            <!-- Coração -->
+            <div class="heart"></div>
 
-window.addEventListener("keydown", e => {
-  keys[e.code] = true;
+            <!-- Reflexo -->
+            <div class="shine"></div>
 
-  if (
-    ["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"]
-    .includes(e.code)
-  ) {
-    e.preventDefault();
-  }
-});
+        </div>
 
-window.addEventListener("keyup", e => {
-  keys[e.code] = false;
-});
+    </main>
 
-/* Controles mobile */
+    <!-- =========================================================
+         TEXTO
+    ========================================================= -->
 
-document.querySelectorAll(".control").forEach(button => {
-
-  const key = button.dataset.key;
-
-  const down = e => {
-    e.preventDefault();
-    keys[key] = true;
-  };
-
-  const up = e => {
-    e.preventDefault();
-    keys[key] = false;
-  };
-
-  button.addEventListener("pointerdown", down);
-  button.addEventListener("pointerup", up);
-  button.addEventListener("pointercancel", up);
-  button.addEventListener("pointerleave", up);
-});
-
-/* =========================
-   JOGO
-========================= */
-
-let running = false;
-let score = 0;
-let lap = 1;
-let nitro = 100;
-let distance = 0;
-
-const roadWidth = 260;
-
-/*
-  Pontos da pista.
-  O carro percorre esses pontos
-  formando uma pista sinuosa.
-*/
-
-const track = [
-  {x:0, y:0},
-  {x:500, y:0},
-  {x:900, y:200},
-  {x:1050, y:600},
-  {x:850, y:950},
-  {x:400, y:1100},
-  {x:-100, y:950},
-  {x:-350, y:550},
-  {x:-250, y:150}
-];
-
-/* =========================
-   CARRO
-========================= */
-
-const car = {
-  x: 0,
-  y: 0,
-  angle: 0,
-  speed: 0,
-  vx: 0,
-  vy: 0,
-  width: 34,
-  height: 60
-};
-
-/* =========================
-   CÂMERA
-========================= */
-
-const camera = {
-  x: 0,
-  y: 0
-};
-
-/* =========================
-   FUNÇÕES
-========================= */
-
-function resetGame() {
-
-  car.x = track[0].x;
-  car.y = track[0].y;
-
-  car.angle = 0;
-
-  car.speed = 0;
-  car.vx = 0;
-  car.vy = 0;
-
-  camera.x = car.x;
-  camera.y = car.y;
-
-  score = 0;
-  lap = 1;
-  nitro = 100;
-  distance = 0;
-
-  updateHUD();
-}
-
-function startGame() {
-
-  document.getElementById("menu").style.display = "none";
-
-  resetGame();
-
-  running = true;
-
-  requestAnimationFrame(gameLoop);
-}
-
-/* =========================
-   FÍSICA
-========================= */
-
-function updateCar() {
-
-  if (!running) return;
-
-  const up =
-    keys.ArrowUp || keys.KeyW;
-
-  const down =
-    keys.ArrowDown || keys.KeyS;
-
-  const left =
-    keys.ArrowLeft || keys.KeyA;
-
-  const right =
-    keys.ArrowRight || keys.KeyD;
-
-  const drifting =
-    keys.Space;
-
-  /*
-    Aceleração
-  */
-
-  if (up) {
-    car.speed += 0.18;
-  }
-
-  if (down) {
-    car.speed -= 0.13;
-  }
-
-  /*
-    Atrito
-  */
-
-  car.speed *= 0.985;
-
-  /*
-    Limite de velocidade
-  */
-
-  let maxSpeed = 8;
-
-  /*
-    Nitro
-  */
-
-  if (
-    keys.ShiftLeft ||
-    keys.ShiftRight
-  ) {
-
-    if (nitro > 0) {
-
-      car.speed += 0.25;
-      nitro -= 0.7;
-
-    }
-
-  } else {
-
-    nitro += 0.12;
-
-  }
-
-  nitro = Math.max(
-    0,
-    Math.min(100, nitro)
-  );
-
-  /*
-    Direção
-  */
-
-  const steering =
-    (right ? 1 : 0) -
-    (left ? 1 : 0);
-
-  if (Math.abs(car.speed) > 0.2) {
-
-    let turnPower = 0.045;
-
-    if (drifting) {
-      turnPower = 0.075;
-    }
-
-    car.angle +=
-      steering *
-      turnPower *
-      (car.speed / maxSpeed);
-
-  }
-
-  /*
-    Movimento
-  */
-
-  const forwardX =
-    Math.sin(car.angle);
-
-  const forwardY =
-    -Math.cos(car.angle);
-
-  let targetVX =
-    forwardX * car.speed;
-
-  let targetVY =
-    forwardY * car.speed;
-
-  /*
-    Física de drift.
-
-    Quanto maior o drift,
-    mais o carro desliza lateralmente.
-  */
-
-  const grip = drifting ? 0.88 : 0.96;
-
-  car.vx =
-    car.vx * grip +
-    targetVX * (1 - grip);
-
-  car.vy =
-    car.vy * grip +
-    targetVY * (1 - grip);
-
-  car.x += car.vx;
-  car.y += car.vy;
-
-  /*
-    Pontuação de drift
-  */
-
-  const lateralSpeed =
-    Math.abs(
-      car.vx * Math.cos(car.angle) -
-      car.vy * Math.sin(car.angle)
-    );
-
-  if (
-    drifting &&
-    Math.abs(car.speed) > 2 &&
-    lateralSpeed > 0.8
-  ) {
-
-    score += Math.floor(
-      lateralSpeed * 2
-    );
-
-  }
-
-  distance += Math.abs(car.speed);
-
-  /*
-    Nova volta
-  */
-
-  if (distance > 9000) {
-
-    distance = 0;
-    lap++;
-
-    if (lap > 3) {
-      finishRace();
-    }
-  }
-
-  /*
-    Câmera suave
-  */
-
-  camera.x +=
-    (car.x - camera.x) * 0.08;
-
-  camera.y +=
-    (car.y - camera.y) * 0.08;
-
-  updateHUD();
-}
-
-/* =========================
-   PISTA
-========================= */
-
-function drawTrack() {
-
-  ctx.save();
-
-  ctx.translate(
-    W / 2 - camera.x,
-    H / 2 - camera.y
-  );
-
-  /*
-    Gramado
-  */
-
-  ctx.fillStyle = "#263b29";
-
-  ctx.fillRect(
-    camera.x - W,
-    camera.y - H,
-    W * 2,
-    H * 2
-  );
-
-  /*
-    Linha externa
-  */
-
-  drawRoad("#e7e7e7", roadWidth + 30);
-
-  /*
-    Asfalto
-  */
-
-  drawRoad("#33363a", roadWidth);
-
-  /*
-    Linha central
-  */
-
-  drawRoad("#f5c542", 5, true);
-
-  ctx.restore();
-}
-
-function drawRoad(color, width, dashed = false) {
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-    track[0].x,
-    track[0].y
-  );
-
-  for (
-    let i = 1;
-    i < track.length;
-    i++
-  ) {
-
-    const p = track[i];
-
-    ctx.lineTo(
-      p.x,
-      p.y
-    );
-  }
-
-  ctx.closePath();
-
-  ctx.strokeStyle = color;
-  ctx.lineWidth = width;
-
-  if (dashed) {
-    ctx.setLineDash([30, 30]);
-  } else {
-    ctx.setLineDash([]);
-  }
-
-  ctx.lineJoin = "round";
-  ctx.lineCap = "round";
-
-  ctx.stroke();
-
-  ctx.setLineDash([]);
-}
-
-/* =========================
-   CARRO
-========================= */
-
-function drawCar() {
-
-  ctx.save();
-
-  ctx.translate(
-    W / 2,
-    H / 2
-  );
-
-  ctx.rotate(
-    car.angle
-  );
-
-  /*
-    Sombra
-  */
-
-  ctx.fillStyle =
-    "rgba(0,0,0,.4)";
-
-  ctx.fillRect(
-    -17,
-    -27,
-    34,
-    60
-  );
-
-  /*
-    Corpo
-  */
-
-  const gradient =
-    ctx.createLinearGradient(
-      -17, 0,
-      17, 0
-    );
-
-  gradient.addColorStop(
-    0,
-    "#9e0018"
-  );
-
-  gradient.addColorStop(
-    .5,
-    "#ff304f"
-  );
-
-  gradient.addColorStop(
-    1,
-    "#9e0018"
-  );
-
-  ctx.fillStyle = gradient;
-
-  roundRect(
-    -17,
-    -30,
-    34,
-    60,
-    7
-  );
-
-  /*
-    Vidro
-  */
-
-  ctx.fillStyle =
-    "#152a35";
-
-  roundRect(
-    -12,
-    -13,
-    24,
-    18,
-    4
-  );
-
-  /*
-    Capô
-  */
-
-  ctx.fillStyle =
-    "#ff526a";
-
-  roundRect(
-    -11,
-    8,
-    22,
-    13,
-    3
-  );
-
-  /*
-    Faróis
-  */
-
-  ctx.fillStyle =
-    "#fff4a3";
-
-  ctx.fillRect(
-    -13,
-    -28,
-    8,
-    5
-  );
-
-  ctx.fillRect(
-    5,
-    -28,
-    8,
-    5
-  );
-
-  /*
-    Rodas
-  */
-
-  ctx.fillStyle =
-    "#080808";
-
-  ctx.fillRect(
-    -20,
-    -20,
-    7,
-    16
-  );
-
-  ctx.fillRect(
-    13,
-    -20,
-    7,
-    16
-  );
-
-  ctx.fillRect(
-    -20,
-    10,
-    7,
-    16
-  );
-
-  ctx.fillRect(
-    13,
-    10,
-    7,
-    16
-  );
-
-  ctx.restore();
-}
-
-function roundRect(
-  x,
-  y,
-  w,
-  h,
-  r
-) {
-
-  ctx.beginPath();
-
-  ctx.roundRect(
-    x,
-    y,
-    w,
-    h,
-    r
-  );
-
-  ctx.fill();
-}
-
-/* =========================
-   FUMAÇA DO DRIFT
-========================= */
-
-function drawSmoke() {
-
-  const drifting =
-    keys.Space;
-
-  if (
-    !drifting ||
-    Math.abs(car.speed) < 2
-  ) {
-    return;
-  }
-
-  ctx.save();
-
-  ctx.translate(
-    W / 2,
-    H / 2
-  );
-
-  ctx.rotate(
-    car.angle
-  );
-
-  for (let i = 0; i < 5; i++) {
-
-    const x =
-      (Math.random() - .5) * 30;
-
-    const y =
-      25 + Math.random() * 15;
-
-    ctx.beginPath();
-
-    ctx.fillStyle =
-      `rgba(220,220,220,${.15 + Math.random()*.2})`;
-
-    ctx.arc(
-      x,
-      y,
-      4 + Math.random() * 6,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.fill();
-  }
-
-  ctx.restore();
-}
-
-/* =========================
-   HUD
-========================= */
-
-function updateHUD() {
-
-  document.getElementById("lap")
-    .textContent =
-    `${Math.min(lap,3)}/3`;
-
-  document.getElementById("score")
-    .textContent =
-    Math.floor(score);
-
-  document.getElementById("speed")
-    .textContent =
-    Math.floor(
-      Math.abs(car.speed) * 25
-    ) + " km/h";
-
-  document.getElementById("nitroFill")
-    .style.width =
-    nitro + "%";
-}
-
-/* =========================
-   FINAL
-========================= */
-
-function finishRace() {
-
-  running = false;
-
-  document.getElementById("menu").style.display =
-    "flex";
-
-  document.querySelector(".menuBox").innerHTML = `
-    <h1>FIM!</h1>
-
-    <p>
-      Corrida terminada!
-    </p>
-
-    <p style="
-      font-size:28px;
-      color:#ff304f;
-      margin-bottom:25px;
-    ">
-      🏆 ${Math.floor(score)} pontos
-    </p>
-
-    <button onclick="location.reload()">
-      JOGAR NOVAMENTE
-    </button>
-  `;
-}
-
-/* =========================
-   LOOP
-========================= */
-
-function gameLoop() {
-
-  if (!running) return;
-
-  updateCar();
-
-  ctx.clearRect(
-    0,
-    0,
-    W,
-    H
-  );
-
-  drawTrack();
-
-  drawSmoke();
-
-  drawCar();
-
-  requestAnimationFrame(
-    gameLoop
-  );
-}
-
-/* =========================
-   START
-========================= */
-
-document.getElementById(
-  "startButton"
-).addEventListener(
-  "click",
-  startGame
-);
-
-</script>
-
-</body>
-</html>
+    
